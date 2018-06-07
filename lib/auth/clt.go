@@ -2008,13 +2008,14 @@ func (c *Client) GetTrustedClusters() ([]services.TrustedCluster, error) {
 	return trustedClusters, nil
 }
 
-func (c *Client) UpsertTrustedCluster(trustedCluster services.TrustedCluster) (services.TrustedCluster, error) {
+func (c *Client) UpsertTrustedCluster(trustedCluster services.TrustedCluster, force bool) (services.TrustedCluster, error) {
 	trustedClusterBytes, err := services.GetTrustedClusterMarshaler().Marshal(trustedCluster)
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}
 	out, err := c.PostJSON(c.Endpoint("trustedclusters"), &upsertTrustedClusterReq{
 		TrustedCluster: trustedClusterBytes,
+		Force:          force,
 	})
 	if err != nil {
 		return nil, trace.Wrap(err)

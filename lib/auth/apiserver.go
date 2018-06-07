@@ -425,6 +425,7 @@ func (s *APIServer) deleteReverseTunnel(auth ClientI, w http.ResponseWriter, r *
 }
 
 type upsertTrustedClusterReq struct {
+	Force          bool            `json:"force"`
 	TrustedCluster json.RawMessage `json:"trusted_cluster"`
 }
 
@@ -438,7 +439,7 @@ func (s *APIServer) upsertTrustedCluster(auth ClientI, w http.ResponseWriter, r 
 		return nil, trace.Wrap(err)
 	}
 
-	out, err := auth.UpsertTrustedCluster(trustedCluster)
+	out, err := auth.UpsertTrustedCluster(trustedCluster, req.Force)
 	if err != nil {
 		return nil, trace.Wrap(err)
 	}

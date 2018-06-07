@@ -23,7 +23,6 @@ import (
 // Presence records and reports the presence of all components
 // of the cluster - Nodes, Proxies and SSH nodes
 type Presence interface {
-
 	// UpsertLocalClusterName upserts local domain
 	UpsertLocalClusterName(name string) error
 
@@ -88,7 +87,7 @@ type Presence interface {
 	DeleteNamespace(name string) error
 
 	// UpsertTrustedCluster creates or updates a TrustedCluster in the backend.
-	UpsertTrustedCluster(TrustedCluster) (TrustedCluster, error)
+	UpsertTrustedCluster(TrustedCluster, bool) (TrustedCluster, error)
 
 	// GetTrustedCluster returns a single TrustedCluster by name.
 	GetTrustedCluster(string) (TrustedCluster, error)

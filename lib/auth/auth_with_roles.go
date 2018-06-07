@@ -1076,7 +1076,7 @@ func (a *AuthWithRoles) GetTrustedCluster(name string) (services.TrustedCluster,
 	return a.authServer.GetTrustedCluster(name)
 }
 
-func (a *AuthWithRoles) UpsertTrustedCluster(tc services.TrustedCluster) (services.TrustedCluster, error) {
+func (a *AuthWithRoles) UpsertTrustedCluster(tc services.TrustedCluster, force bool) (services.TrustedCluster, error) {
 	if err := a.action(defaults.Namespace, services.KindTrustedCluster, services.VerbCreate); err != nil {
 		return nil, trace.Wrap(err)
 	}
@@ -1084,7 +1084,7 @@ func (a *AuthWithRoles) UpsertTrustedCluster(tc services.TrustedCluster) (servic
 		return nil, trace.Wrap(err)
 	}
 
-	return a.authServer.UpsertTrustedCluster(tc)
+	return a.authServer.UpsertTrustedCluster(tc, force)
 }
 
 func (a *AuthWithRoles) ValidateTrustedCluster(validateRequest *ValidateTrustedClusterRequest) (*ValidateTrustedClusterResponse, error) {
